@@ -14,6 +14,9 @@ RUN apt update \
         vim-tiny firefox \
     && apt install -y xfce4-session xfce4-goodies xfce4-panel
 
+# Useful to install firefox without snap
+RUN add-apt-repository ppa:mozillateam/ppa
+
 RUN apt update \
     && apt autoclean -y \
     && apt autoremove -y \
@@ -25,7 +28,6 @@ ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /bin/
 ADD startup.sh /
 ADD supervisord.conf /etc/supervisor/conf.d/
 ADD xvfb.sh /usr/local/bin/
-ADD wallpapers /usr/local/share/wallpapers/
 
 RUN chmod +x /bin/tini
 
