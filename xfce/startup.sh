@@ -32,4 +32,4 @@ if [ "$USER" != "root" ]; then
 fi
 sed -i -e "s|%USER%|$USER|" -e "s|%HOME%|$HOME|" /etc/supervisor/conf.d/supervisord.conf
 
-exec /bin/tini -- supervisord -n -c /etc/supervisor/supervisord.conf
+exec /usr/bin/tini -- supervisord -n -c /etc/supervisor/supervisord.conf
