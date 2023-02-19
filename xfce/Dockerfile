@@ -1,25 +1,19 @@
-FROM ubuntu:jammy as system
+FROM debian:bullseye
 
 # built-in packages
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt update \
-    && apt install -y software-properties-common curl apache2-utils \
-    && apt update \
-    && apt install -y \
-        supervisor nginx sudo net-tools zenity xz-utils \
+RUN apt-get update \
+    && apt-get install -y \
+        supervisor sudo net-tools \
         dbus-x11 x11-utils alsa-utils \
         mesa-utils libgl1-mesa-dri \
-    && apt install -y \
+    && apt-get install -y \
         xvfb x11vnc \
-        vim-tiny firefox \
-    && apt install -y xfce4-session xfce4-goodies xfce4-panel
+    && apt-get install -y xfce4-session xfce4-goodies xfce4-panel
 
-# Useful to install firefox without snap
-RUN add-apt-repository ppa:mozillateam/ppa
-
-RUN apt update \
-    && apt autoclean -y \
-    && apt autoremove -y \
+RUN apt-get update \
+    && apt-get autoclean -y \
+    && apt-get autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
 # tini to fix subreap
@@ -32,7 +26,6 @@ ADD xvfb.sh /usr/local/bin/
 RUN chmod +x /bin/tini
 
 WORKDIR /root
-ENV HOME=/home/ubuntu \
-    SHELL=/bin/bash
+ENV SHELL=/bin/bash
 
 ENTRYPOINT ["/startup.sh"]
