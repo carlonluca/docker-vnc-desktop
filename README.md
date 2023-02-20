@@ -2,6 +2,18 @@
 
 Docker VNC desktop contains the scripts needed to build images including clean DE's with VNC support. Images are supposed to be as light as possible and simple to run. I use these images mostly for development purposes or quick tasks.
 
+## LXQT on docker on Raspberry Pi (arm64)
+
+```docker run --rm -e USER=luca -e RESOLUTION=1920x1080 -p 5900:5900 carlonluca/vnc-desktop:jammy-lxqt```
+
+![Docker lxqt on the Raspberry Pi 4](extras/docker-lxqt.webp)
+
+## XFCE (amd64)
+
+```docker run --rm -e USER=luca -e RESOLUTION=1920x1080 -p 5900:5900 carlonluca/vnc-desktop:jammy-xfce```
+
+![Docker xfce on Manjaro](extras/docker-xfce.webp)
+
 ## Run
 
 To simply run the image and expose the port to localhost use:
