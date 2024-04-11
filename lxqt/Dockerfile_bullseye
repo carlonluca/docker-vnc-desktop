@@ -18,12 +18,12 @@ RUN apt-get update \
 
 # tini to fix subreap
 ARG TINI_VERSION=v0.18.0
-ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /bin/tini
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /usr/bin/tini
 ADD startup.sh /
 ADD supervisord.conf /etc/supervisor/conf.d/
 ADD xvfb.sh /usr/local/bin/
 
-RUN chmod +x /bin/tini
+RUN chmod +x /usr/bin/tini
 
 WORKDIR /root
 ENV SHELL=/bin/bash
