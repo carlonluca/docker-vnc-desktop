@@ -27,3 +27,5 @@ This will run the DE as the root user. To run it as a regular user set the USER 
 The resolution is set to a default, which is frequently too small. Setting the RESOLUTION env variable is sufficient to change it:
 
 ```docker run --rm -e USER=luca -e RESOLUTION=1920x1080 -p 5900:5900 carlonluca/vnc-desktop:bullseye-xfce```
+
+_NOTE: default credentials for all images are ubuntu:ubuntu._
