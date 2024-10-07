@@ -11,6 +11,14 @@ RUN apt-get update \
         xvfb x11vnc \
     && apt-get install -y xfce4-session xfce4-goodies xfce4-panel
 
+# Install Firefox
+RUN apt-get install -y software-properties-common \
+ && add-apt-repository -y ppa:mozillateam/ppa
+
+ADD mozilla-firefox /etc/apt/preferences.d/
+
+RUN apt-get install -y firefox
+
 # tini to fix subreap
 #ARG TINI_VERSION=v0.18.0
 #ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /bin/tini
