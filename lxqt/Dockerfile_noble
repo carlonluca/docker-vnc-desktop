@@ -2,7 +2,7 @@ FROM carlonluca/vnc-desktop:noble-base
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
- && apt-get install -y xfce4-session xfce4-goodies xfce4-panel
+ && apt-get install -y lxqt openbox
 
 RUN apt-get update \
     && apt-get autoclean -y \

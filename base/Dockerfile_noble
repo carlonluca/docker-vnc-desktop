@@ -1,0 +1,27 @@
+FROM ubuntu:noble
+
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update \
+ && apt-get install -y supervisor sudo \
+        net-tools dbus-x11 x11-utils alsa-utils mesa-utils libgl1-mesa-dri \
+ && apt-get install -y xvfb x11vnc
+
+# Install Firefox
+RUN apt-get install -y software-properties-common \
+ && add-apt-repository -y ppa:mozillateam/ppa
+ADD mozilla-firefox /etc/apt/preferences.d/
+RUN apt-get install -y firefox
+
+# tini to fix subreap
+#ARG TINI_VERSION=v0.18.0
+#ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /bin/tini
+#RUN chmod +x /bin/tini
+RUN apt-get install -y tini
+
+RUN apt-get update \
+    && apt-get autoclean -y \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /root
+ENV SHELL=/bin/bash
