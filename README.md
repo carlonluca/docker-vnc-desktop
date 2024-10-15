@@ -29,5 +29,5 @@ The resolution is set to a default, which is frequently too small. Setting the R
 ```docker run --rm -e USER=luca -e RESOLUTION=1920x1080 -p 5900:5900 carlonluca/vnc-desktop:bullseye-xfce```
 
 _NOTE: default credentials for all images are ubuntu:ubuntu._
-_NOTE: to run on MacOS you have to add -e VM_PASSWORD=XXX for vnc to run
+_NOTE: to run on MacOS you have to add -e VNC_PASSWORD=XXX for vnc to run
 tip: macOS has native vnc - use vnc://localhost:5900 in browser to connect
