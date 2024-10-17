@@ -1,0 +1,19 @@
+FROM carlonluca/vnc-desktop:focal-base
+
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update \
+ && apt-get install -y xfce4-session xfce4-goodies xfce4-panel
+
+RUN apt-get update \
+    && apt-get autoclean -y \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
+ADD startup.sh /
+ADD supervisord.conf /etc/supervisor/conf.d/
+ADD xvfb.sh /usr/local/bin/
+
+WORKDIR /root
+ENV SHELL=/bin/bash
+
+ENTRYPOINT ["/startup.sh"]
