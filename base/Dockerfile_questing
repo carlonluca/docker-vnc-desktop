@@ -1,0 +1,32 @@
+FROM ubuntu:questing
+
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update \
+ && apt-get install -y supervisor sudo \
+        net-tools dbus-x11 x11-utils alsa-utils mesa-utils libgl1-mesa-dri \
+ && apt-get install -y xvfb x11vnc
+
+# Install Firefox
+RUN apt-get update \
+ && apt-get install -y wget gnupg ca-certificates \
+ && wget -q https://packages.mozilla.org/apt/repo-signing-key.gpg -O- \
+    | gpg --dearmor > /usr/share/keyrings/mozilla.gpg \
+ && echo "deb [signed-by=/usr/share/keyrings/mozilla.gpg] https://packages.mozilla.org/apt mozilla main" \
+    > /etc/apt/sources.list.d/mozilla.list \
+ && apt-get update \
+ && apt-get install -y firefox \
+ && rm -rf /var/lib/apt/lists/*
+
+# tini to fix subreap
+ENV TINI_VERSION=v0.19.0
+ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
+RUN chmod +x /tini
+ENTRYPOINT ["/tini", "--"]
+
+RUN apt-get update \
+    && apt-get autoclean -y \
+    && apt-get autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /root
+ENV SHELL=/bin/bash
