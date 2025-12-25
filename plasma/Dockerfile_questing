@@ -2,7 +2,8 @@ FROM carlonluca/vnc-desktop:questing-base
   
 ENV DEBIAN_FRONTEND noninteractive  
 RUN apt-get update \  
- && apt-get install -y kde-full  
+ && apt-get install -y kde-full plasma-session-x11 \
+ && apt-get remove --purge plasma-workspace-wayland
   
 RUN apt-get update \  
  && apt-get autoclean -y \  
